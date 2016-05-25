@@ -1,7 +1,8 @@
 #include<string.h>
 #include<stdlib.h>
 #include<stdio.h>
-#include<iomanip.h>
+#include<iomanip>
+#include "iostream"
 
 using namespace std;
 
@@ -17,7 +18,8 @@ public:
     int longitud(char *x);
     Palabra operator +(Palabra);
 };
-//Palabra::Palabra(){};
+
+//Palabra::Palabra(){nL=0};
 
 void Palabra::leer(){
     char A[105];
@@ -34,13 +36,13 @@ void Palabra::imprimir(){
 Palabra Palabra::operator +(Palabra P){
     Palabra W;
     int i;
-    W.nL=nL+P.nL+1;
-    W.text=new char[W.nL+1];
+    W.nL=this->nL+P.nL+1;
+    W.text=new char[W.nL];
     for(i=0;i<nL;i++)
-        W.text[i]=text[i];
-    W.text[i+2]='#';
-    for(i=nL+3;i<=W.nL;i++)
-        W.text[i+1]=P.text[i-(nL-1)];
+        W.text[i]=this->text[i];
+    W.text[this->nL]='#';
+    for(i=this->nL+1;i<=W.nL;i++)
+        W.text[i]=P.text[i-(nL+1)];
     return W;
 }
 int Palabra::longitud(char *x){
@@ -53,10 +55,14 @@ int Palabra::longitud(char *x){
 }
 
 int main(void){
-Palabra A,B;
+Palabra A,B,C;
 A.leer();
 B.leer();
 A.imprimir();
+cout<<endl;
 B.imprimir();
+cout<<endl;
+C=A+B;
+C.imprimir();
 return 0;
 }
